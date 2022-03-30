@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap');
+
+.main {
+    margin: 100px 0px;
+    display: flex;
+    // flex-flow: row wrap;
+    flex-direction: row;
+    padding: 0 30px;
+}
+mark {
+    // background-color: #fbbea3;
+}
+.card {
+    padding: 0 25px;
+    flex-grow: 1;
+    text-align: left;
+}
+.border:not(:last-child){
+    border-right: 1px solid #e9e3dc;
+}
+.title {
+    font-family: "Playfair Display", serif;
+    font-weight: 800;
+    font-size: 30px;
+}
+img {
+    width: 100%;
+    margin-bottom: 10px;
+}
+#h {
+    flex-grow: 2;
+}
+.text {
+    font-family: "Mulish", sans-serif;
+    font-size: 1.1em;
+    margin-top: 20px;
+    display: flex;
+    font-weight: 600;
+    color: #5c5a58;
+    line-height: 30px;
+}
+.author {
+    display: flex;
+    margin-top: 30px;
+    text-align: left;
+    font-weight: 700;
+    .name {
+        margin-left: 10px;
+    }
+    img {
+        height: 35px;
+        width: 35px;
+        filter: grayscale(100%);
+        border-radius: 10px;
+    }
+}
