@@ -1,0 +1,39 @@
+// .user-profile {
+//     display: flex;
+//     padding: 10px;
+//     cursor: pointer;
+//     svg {
+//         height: 20px;
+//         width: 20px;
+//     }
+//     &-label {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         margin: 0 10px;
+//     }
+// }
+.user {
+    &-profile {
+        display: flex;
+        padding: 10px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+    }
+    &-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 10px;
+    }
+    &-login{
+        margin: 0px 30px;
+    }
+    &-register {
+        padding: 12px 30px;
+        background-color: black;
+        color: white;
+        border-radius: 7px;
+    }
+}
