@@ -1,7 +1,7 @@
 import React from 'react'
 import './Search.scss'
 
-export default function Search() {
+const Search = () => {
     return (
         <div className="search">
             <div className="search__field">
@@ -19,3 +19,4 @@ export default function Search() {
         </div>
     )
 }
+export default Search 

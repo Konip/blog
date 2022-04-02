@@ -4,14 +4,16 @@ import Search from '../Search/Search'
 import UserProfile from '../UserProfile/UserProfile'
 import './Header.scss'
 
-export default function Header() {
+const Header = ({ setModal }: any) => {
     return (
         <div className='header'>
             <div className="header-left">
                 <Search />
                 <CreatePost />
             </div>
-            <UserProfile />
+            <UserProfile setModal={setModal} />
         </div>
     )
 }
+
+export default Header

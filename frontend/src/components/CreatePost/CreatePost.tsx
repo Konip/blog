@@ -1,12 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './CreatePost.scss'
 
-export default function CreatePost() {
+const CreatePost = () => {
   return (
-    <div className='create'>
- 
-        Новая запись
-
-    </div>
+    <Link className='create btn-black' to={'write'}>
+      Новая запись
+    </Link>
   )
 }
+export default CreatePost 

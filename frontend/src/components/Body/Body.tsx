@@ -1,9 +1,9 @@
 import React from 'react'
-import './Main.scss'
+import './Body.scss'
 
-export default function Main() {
+const Body = () => {
   return (
-    <div className='main'>
+    <div className='body'>
       <div className="card border" id='h'>
         <div className="title" >
           <span>The First Signs of <mark style={{ backgroundColor: '#fbbea3' }}>Alcoholic Liver</mark>  Damage Are Not in the Liver</span>
@@ -71,3 +71,4 @@ export default function Main() {
     </div>
   )
 }
+export default Body
