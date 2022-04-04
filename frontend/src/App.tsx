@@ -2,12 +2,13 @@ import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import './App.scss';
 import Header from './components/Header/Header';
+import AuthPage from './pages/AuthPage';
 import Main from './pages/Main';
 import WritePage from './pages/WritePage';
 
 function App() {
 
-  const [modal, setModal] = React.useState(false)
+  const [authVisible, setAuthVisible] = React.useState(false)
 
   const routes = useRoutes([
     { path: "/", element: <Main /> },
@@ -16,14 +17,15 @@ function App() {
   ])
 
   const handleModal = () => {
-    setModal(!modal)
+    setAuthVisible(!authVisible)
   }
 
   return (
     <div className="App">
-      {console.log(modal)
+      <Header setAuthVisible={handleModal} />
+      {authVisible &&
+        <AuthPage authVisible={authVisible} setAuthVisible={handleModal}/>
       }
-      <Header setModal={handleModal} />
       {routes}
     </div>
   );

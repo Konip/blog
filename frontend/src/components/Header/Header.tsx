@@ -4,14 +4,18 @@ import Search from '../Search/Search'
 import UserProfile from '../UserProfile/UserProfile'
 import './Header.scss'
 
-const Header = ({ setModal }: any) => {
+interface HeaderProps {
+    setAuthVisible: () => void
+}
+
+const Header: React.FC<HeaderProps> = ({ setAuthVisible }) => {
     return (
         <div className='header'>
             <div className="header-left">
                 <Search />
                 <CreatePost />
             </div>
-            <UserProfile setModal={setModal} />
+            <UserProfile setAuthVisible={setAuthVisible} />
         </div>
     )
 }

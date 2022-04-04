@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Post } from './post/entities/post.entity';
+import { PostModule } from './post/post.module';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 
@@ -14,10 +16,12 @@ import { UserModule } from './user/user.module';
       username: 'postgres',
       password: '1616300',
       database: 'blog',
-      entities: [User],
+      entities: [User, Post],
       synchronize: true,
     }),
-    UserModule],
+    UserModule,
+    PostModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

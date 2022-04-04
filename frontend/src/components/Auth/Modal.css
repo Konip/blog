@@ -1,0 +1,294 @@
+.modal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: .3s;
+    opacity: 0;
+    z-index: 1;
+}
+
+.modal.active {
+    visibility: visible;
+    pointer-events: all;
+    opacity: 1;
+    /* z-index: 2; */
+}
+
+.modal__content {
+    padding: 30px 10px;
+    background-color: #f8f8f8;
+    width: 450px;
+    height: 500px;
+    position: relative;
+    border-radius: 25px;
+    padding: 30px 40px;
+    z-index: 5;
+}
+
+.modal-close {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#dash {
+    margin: 0 7px;
+}
+
+.sign, .log {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f8f8;
+}
+
+span::selection {
+    background-color: rgb(222 250 240);
+}
+
+.inputError::selection {
+    background-color: rgb(178 236 216);
+}
+
+#title {
+    color: #5ee5b5;
+    cursor: pointer;
+}
+
+#green {
+    color: #5ee5b5;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    line-height: 1.5em;
+    color: rgb(141 138 138);
+    margin-top: 10px;
+    text-align: center;
+}
+
+form {
+    width: 100%;
+    margin-bottom: 100px;
+
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.input-wrapper {
+    padding-bottom: 12px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.modal__input {
+    /* margin-top: 10px;
+    height: 40px;
+    width: 90%;
+    border-radius: 20px; */
+    outline: none;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(102, 102, 102) !important;
+    border: none;
+    z-index: 1;
+    border-radius: 18px;
+    padding: 10px 12px;
+    height: 36px;
+    line-height: 16px;
+    /* background-color: #f8f8f8; */
+}
+
+.input-border, .input-border-error {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.input-border::before {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.input-border-error::before {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.input-border::after, .input-border::before, .input-border-error::after, .input-border-error::before {
+    z-index: 13;
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+}
+
+.input-border::after {
+    border: 2px solid rgb(92, 229, 180);
+    z-index: 14;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+}
+
+.input-border-error::after {
+    border: 2px solid rgb(242, 78, 98);
+    transition: opacity 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+    opacity: 1;
+}
+
+.modal__input:hover+.input-border::after, .modal__input:focus+.input-border::after, .modal__input:hover+.input-border-error::after, .modal__input:focus+.input-border-error::after {
+    border-color: rgb(92, 229, 180);
+    opacity: 1;
+}
+
+.modal__btn-log, .modal__btn-sign {
+    background-color: #91e6b5;
+    height: 40px;
+    width: max-content;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    transition: background-color 0.2s ease-in-out 0s;
+}
+
+.modal__btn-log {
+    padding: 5px 60px;
+}
+
+.modal__btn-sign {
+    padding: 5px 20px;
+}
+
+.modal__btn-log:hover, .modal__btn-sign:hover {
+    background-color: rgb(70 228 171);
+}
+
+.close {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.inputError {
+    padding: 4px 12px;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    color: rgb(242, 78, 98);
+}
+
+.createAc {
+    display: flex;
+    color: #5ee5b5;
+}
+
+.createAc div {
+    cursor: pointer;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.checkbox input {
+    display: none;
+}
+
+.checkbox label svg {
+    margin: 0;
+    opacity: 0;
+}
+
+.checkbox label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e8e8e8;
+    border-radius: 30px;
+    /* width: 20px;
+    height: 20px; */
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+    border-color: 0.15s ease-in-out;
+}
+
+.checkbox:hover label {
+    background-color: #f2f2f2;
+    border-color: #f2f2f2;
+}
+
+.checkbox:hover label svg {
+    opacity: 1;
+}
+
+.checkbox:hover label svg path {
+    stroke: #b3b3b3;
+}
+
+input:checked+label {
+    background-color: #4dd599;
+    border-color: #4dd599;
+}
+
+input:checked+label svg {
+    opacity: 1;
+}
+
+input:checked+label svg path {
+    stroke: #f2f2f2;
+}
+
+.stayLogged {
+    color: rgb(141 138 138);
+}
+
+.reset__btn-del {
+    background-color: rgb(242, 78, 98);
+    height: 40px;
+    width: max-content;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    transition: background-color 0.2s ease-in-out 0s;
+    width: 120px;
+}
+
+.reset__btn-del:hover {
+    background-color: rgb(217, 70, 88);
+}
