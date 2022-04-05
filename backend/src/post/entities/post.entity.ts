@@ -11,8 +11,13 @@ export class Post {
     @Column()
     body: string;
 
+    @Column({
+        default: 0
+    })
+    views: number;
+
     @Column({ nullable: true })
-    text?: string;
+    tags?: string;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
