@@ -1,6 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { setCookie } from 'nookies';
 import React from 'react';
+import { UserApi } from '../../api';
 import { ReactComponent as Close } from '../../assets/img/close.svg';
+import { CreateUserDto } from '../../store/types';
 import { SignupFormSchema } from '../../utils/schemas/signupValidation';
 // import { Context } from "../../Context.js";
 // import './Modal.css';
@@ -13,6 +16,7 @@ interface SignUpProps {
     setAuthVisible: () => void
 }
 
+
 // const isValidEmail = (email: string): boolean => !(email && !/^[a-zа-яё0-9._%+-]+@[a-zа-яё0-9.-]+\.[a-zа-яё]{2,6}$/i.test(email));
 
 // Yup.addMethod(Yup.string, 'validateEmail', function (errorText) {
@@ -21,30 +25,30 @@ interface SignUpProps {
 // });
 
 
-
-
 const SignUp: React.FC<SignUpProps> = ({ setAuthVisible }) => {
 
     const [loading, setLoading] = React.useState<boolean>()
     const [emailPage, setEmailPage] = React.useState<boolean>(false)
     // const ctx = useContext(Context);
 
-    const handleOnSubmit = async ({ email, password }: { email: string, password: string }, actions: any) => {
-        console.log(email, password);
-
-        // try {
-        //     setLoading(true)
-        //     await ctx.registration(email, password)
-        //     actions.setSubmitting(false);
-        //     actions.resetForm();
-        //     setEmail(email)
-        //     openModal(true, 'SignupInformation')
-        // } catch (error) {
-        //     actions.setErrors({ incorrect: error })
-        //     actions.setSubmitting(false);
-        // } finally {
-        //     setLoading(false)
-        // }
+    // const handleOnSubmit = async ({ email, password, fullName }: { fullName: string, email: string, password: string }, actions: any) => {
+    const handleOnSubmit = async (dto: CreateUserDto, actions: any) => {
+        try {
+            setLoading(true)
+            const data = await UserApi.register(dto)
+            console.log(data);
+            setCookie(null, 'authToken', data.token, {
+                maxAge: 30 * 24 * 60 * 60,
+                path: '/'
+            })
+            actions.resetForm();
+        } catch (error) {
+            actions.setErrors({ incorrect: error })
+            console.warn(error);
+        } finally {
+            setLoading(false)
+            actions.setSubmitting(false);
+        }
     }
 
     return (
@@ -69,12 +73,22 @@ const SignUp: React.FC<SignUpProps> = ({ setAuthVisible }) => {
                         emailPage
                             ?
                             <Formik
-                                initialValues={{ email: '', password: '' }}
+                                initialValues={{ email: '', password: '', fullName: '' }}
                                 validationSchema={SignupFormSchema}
                                 onSubmit={handleOnSubmit}
                             >
                                 {({ isSubmitting, errors }: { isSubmitting: boolean, errors: any }) => (
                                     <Form>
+                                        <div className="input-wrapper">
+                                            <div className="input-container">
+                                                <Field className="modal__input" type="text" name="fullName" placeholder="FullName" />
+                                                <div className={errors?.email ? "input-border-error" : "input-border"}></div>
+                                                <div className={errors?.incorrect ? "input-border-error" : "input-border"}></div>
+                                            </div>
+                                            <ErrorMessage className="inputError" name="fullName" component="div" />
+                                            {errors.incorrect && <div className="inputError">{errors.incorrect}</div>}
+                                        </div>
+
                                         <div className="input-wrapper">
                                             <div className="input-container">
                                                 <Field className="modal__input" type="email" name="email" placeholder="Email" />
