@@ -1,18 +1,20 @@
 import React from 'react'
 import './Auth.scss'
-import SignUp from './SignUp'
+import SignUp from './Login'
+import Login from './SignUp'
 
 interface AuthPageProps {
-    authVisible: boolean,
-    setAuthVisible: () => void
+    showLogin: boolean
+    showReg: boolean
+    closePopUp: () => void
 }
 
-const Auth: React.FC<AuthPageProps> = ({ authVisible ,setAuthVisible}) => {
+const Auth: React.FC<AuthPageProps> = ({ showLogin, showReg, closePopUp }) => {
     return (
-        <div className={authVisible ? 'auth-active' : 'auth'}>
-            <div className="auth-close" ></div>
+        <div className={showLogin || showReg ? 'auth-active' : 'auth'}>
             <div className="auth__content" >
-                <SignUp setAuthVisible={setAuthVisible}/>
+                {showReg && <SignUp closePopUp={closePopUp}/>}
+                {showLogin && <Login closePopUp={closePopUp}/>}
             </div>
         </div>
     )

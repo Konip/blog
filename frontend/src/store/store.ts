@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { setFilter } from './actions';
+import { saga } from './sagas';
 import { userReducer } from './userReducer';
 
 const sagaMiddleware = createSagaMiddleware()
@@ -18,4 +18,4 @@ export const store = createStore(
     )
 )
 
-sagaMiddleware.run(setFilter)
+sagaMiddleware.run(saga)

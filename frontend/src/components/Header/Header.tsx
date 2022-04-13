@@ -1,21 +1,22 @@
 import React from 'react'
 import CreatePost from '../CreatePost/CreatePost'
+import NavigationUser from '../NavigationUser/NavigationUser'
 import Search from '../Search/Search'
-import UserProfile from '../UserProfile/UserProfile'
 import './Header.scss'
 
 interface HeaderProps {
-    setAuthVisible: () => void
+    handleLogin: () => void
+    handleReg: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ setAuthVisible }) => {
+const Header: React.FC<HeaderProps> = ({ handleLogin,handleReg }) => {
     return (
         <div className='header'>
             <div className="header-left">
                 <Search />
                 <CreatePost />
             </div>
-            <UserProfile setAuthVisible={setAuthVisible} />
+            <NavigationUser handleLogin={handleLogin} handleReg={handleReg} />
         </div>
     )
 }

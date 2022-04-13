@@ -1,3 +1,9 @@
+$pink: #bc3bad;
+$NavyBlue: #322457;
+$grey: #a199b1;
+$darkPink: #b72ba8;
+$lightGray: #e5dfdf;
+
 .auth,
 .auth-active {
     position: fixed;
@@ -21,6 +27,7 @@
     &__content {
         width: 1200px;
         height: 600px;
+        position: relative;
     }
 }
 .auth-active {
@@ -39,8 +46,8 @@
 
     &__close {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 15px;
+        right: 15px;
         bottom: 0;
         height: 30px;
         width: 30px;
@@ -49,7 +56,7 @@
 
     &__img {
         width: 50%;
-        background-color: #5ee5b5;
+        // background-color: #5ee5b5;
     }
     &__form {
         width: 50%;
@@ -72,26 +79,47 @@
         }
 
         &-title {
-            color: #322457;
+            color: $NavyBlue;
             font-size: 40px;
             font-weight: 700;
         }
 
         &-subtitle {
             // color: #5c5a58;
-            color: #939393;
+            // color: #939393;
+            color: $grey;
         }
     }
     &__cards {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         &-container {
             display: flex;
             justify-content: center;
             align-items: center;
         }
         &-title {
-            // color: #322457;
-            // font-size: 40px;
-            // font-weight: 700;
+            margin-left: 5px;
+            color: $grey;
+        }
+        &-login {
+            font-size: 1.2em;
+            text-align: left;
+            margin-left: 5px;
+            a {
+                color: $pink;
+                svg {
+                    height: 15px;
+                    width: 15px;
+                    margin-bottom: -2px;
+                    -webkit-transform: rotate(180deg);
+                    -moz-transform: rotate(180deg);
+                    -ms-transform: rotate(180deg);
+                    -o-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                }
+            }
         }
     }
     &__card {
@@ -99,10 +127,37 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #ba8baa;
+        flex-direction: column;
+        border: 2px solid $lightGray;
+        height: 130px;
+        width: 130px;
+        border-radius: 4px;
         margin: 5px;
-        height: 100px;
-        width: 100px;
+        transition: 0.3s;
+
+        &-title {
+            color: $NavyBlue;
+        }
+
+        &-img {
+            // display: block;
+            height: 24px;
+            width: 24px;
+            svg {
+                height: 24px;
+                width: 24px;
+                color: $NavyBlue !important;
+            }
+        }
+        &:hover {
+            border: 2px solid $darkPink;
+            transition: 0.3s;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
     }
 }
 span::selection {
@@ -148,10 +203,6 @@ form {
 }
 
 .modal__input {
-    /* margin-top: 10px;
-    height: 40px;
-    width: 90%;
-    border-radius: 20px; */
     outline: none;
     width: 100%;
     font-size: 13px;
@@ -163,7 +214,6 @@ form {
     padding: 10px 12px;
     height: 36px;
     line-height: 16px;
-    /* background-color: #f8f8f8; */
 }
 
 .input-border,

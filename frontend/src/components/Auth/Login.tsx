@@ -1,20 +1,16 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { ReactComponent as ArrowLogo } from "../../assets/img/arrow.svg";
-import { ReactComponent as Close } from "../../assets/img/close.svg";
-import { ReactComponent as FbLogo } from "../../assets/img/fb.svg";
-import { ReactComponent as GoogleLogo } from "../../assets/img/google.svg";
-import { ReactComponent as MailLogo } from "../../assets/img/mail.svg";
-import { REGISTRATION } from "../../store/actions";
-import { CreateUserDto } from "../../store/types";
-import { SignupFormSchema } from "../../utils/schemas/signupValidation";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { ReactComponent as Close } from '../../assets/img/close.svg';
+import { REGISTRATION } from '../../store/actions';
+import { CreateUserDto } from '../../store/types';
+import { SignupFormSchema } from '../../utils/schemas/signupValidation';
 // import { Context } from "../../Context.js";
-// import "./Modal.css";
-import "./Auth.scss";
+// import './Modal.css';
+import './Auth.scss';
 
 
-interface SignUpProps {
+interface LoginProps {
     // openModal(activeModal: boolean, typeModal: string): void
     // setEmail(email: string): void
     closePopUp: () => void
@@ -23,14 +19,14 @@ interface SignUpProps {
 
 // const isValidEmail = (email: string): boolean => !(email && !/^[a-zа-яё0-9._%+-]+@[a-zа-яё0-9.-]+\.[a-zа-яё]{2,6}$/i.test(email));
 
-// Yup.addMethod(Yup.string, "validateEmail", function (errorText) {
-//     const message = errorText || "Поле должно содержать адрес в формате email@domain.com";
-//     return this.test("emailValidate", message, isValidEmail);
+// Yup.addMethod(Yup.string, 'validateEmail', function (errorText) {
+//     const message = errorText || 'Поле должно содержать адрес в формате email@domain.com';
+//     return this.test('emailValidate', message, isValidEmail);
 // });
 
 
-const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
 
+const Login: React.FC<LoginProps> = ({closePopUp }) => {
     const [loading, setLoading] = React.useState<boolean>()
     const [emailPage, setEmailPage] = React.useState<boolean>(false)
     const dispatch = useDispatch()
@@ -43,9 +39,9 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
             // const data = await UserApi.register(dto)
             // console.log(data);
             dispatch({ type: REGISTRATION })
-            // setCookie(null, "authToken", data.token, {
+            // setCookie(null, 'authToken', data.token, {
             //     maxAge: 30 * 24 * 60 * 60,
-            //     path: "/"
+            //     path: '/'
             // })
             actions.resetForm();
         } catch (error) {
@@ -68,7 +64,7 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
                     <div className="signup__header">
                         <div className="signup__header-container">
                             <div className="signup__header-title">
-                                Sign In.
+                                Create Account.
                             </div>
                             <div className="signup__header-subtitle">
                                 Share your thoughts with the world from today.
@@ -79,7 +75,7 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
                         emailPage
                             ?
                             <Formik
-                                initialValues={{ email: "", password: "", fullName: "" }}
+                                initialValues={{ email: '', password: '', fullName: '' }}
                                 validationSchema={SignupFormSchema}
                                 onSubmit={handleOnSubmit}
                             >
@@ -126,47 +122,24 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
                                 )}
                             </Formik>
                             :
-                            <div className="signup__cards">
+                            <div className='signup__cards'>
                                 <div className="signup__cards-title">
                                     Continue with...
                                 </div>
                                 <div className="signup__cards-container">
                                     <div className="signup__card">
-                                        <a className="signup__card-img">
-                                            <FbLogo />
-                                        </a>
+                                        <div className="signup__card-img"></div>
                                         <div className="signup__card-title">
                                             Facebook
                                         </div>
                                     </div>
-                                    <div className="signup__card">
-                                        <a className="signup__card-img">
-                                            <GoogleLogo />
-                                        </a>
-                                        <div className="signup__card-title">
-                                            Google
-                                        </div>
+                                    <div className="signup__card"
+                                    >Google
                                     </div>
                                     <div className="signup__card"
                                         onClick={() => setEmailPage(true)}
                                     >
-                                        <a className="signup__card-img">
-                                            <MailLogo />
-                                        </a>
-                                        <div className="signup__card-title">
-                                            Email address
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="signup__cards-footer">
-                                    <div className="signup__cards-title">
-                                        Already have an account?
-                                    </div>
-                                    <div className="signup__cards-login">
-                                        <a href="">
-                                            Log In
-                                            <ArrowLogo />
-                                        </a>
+                                        Email address
                                     </div>
                                 </div>
                             </div>
@@ -177,4 +150,4 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
         </div>
     )
 }
-export default SignUp;
+export default Login;

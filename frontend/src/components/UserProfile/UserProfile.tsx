@@ -8,8 +8,8 @@ interface UserProfileProps {
 const UserProfile: React.FC<UserProfileProps> = ({ setAuthVisible }) => {
     return (
         <div className='user-profile'>
-            <div className="user-login" onClick={setAuthVisible}>Login</div>
-            <div className="user-register btn-black">Register</div>
+            <div className='user-login' onClick={setAuthVisible}>Login</div>
+            <div className='user-register btn-black'>Register</div>
         </div>
     )
 }
