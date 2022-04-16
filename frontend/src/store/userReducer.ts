@@ -1,4 +1,3 @@
-import { REGISTRATION } from "./actions";
 
 const initialState = {
   auth: false,
@@ -8,7 +7,7 @@ const initialState = {
 
 export function userReducer(state = initialState, { type, data }: any) {
   switch (type) {
-    case REGISTRATION: {
+    case 'REGISTRATION1': {
       return {
         ...state,
         fullName: 'Som',

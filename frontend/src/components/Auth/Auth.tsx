@@ -1,7 +1,7 @@
 import React from 'react'
 import './Auth.scss'
-import SignUp from './Login'
-import Login from './SignUp'
+import Login from './Login'
+import SignUp from './SignUp'
 
 interface AuthPageProps {
     showLogin: boolean
