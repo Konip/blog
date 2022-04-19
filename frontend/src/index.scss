@@ -26,10 +26,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.btn-black {
-  padding: 12px 30px;
-  background-color: black;
-  color: white;
-  border-radius: 7px;
-  cursor: pointer;
+.btn {
+  &-black {
+    padding: 12px 30px;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  &-transparent {
+    padding: 12px 30px;
+    color: black;
+    border-radius: 7px;
+    cursor: pointer;
+  }
 }

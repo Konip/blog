@@ -15,6 +15,11 @@ mark {
     padding: 0 25px;
     flex-grow: 1;
     text-align: left;
+
+    img {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 .border:not(:last-child){
     border-right: 1px solid #e9e3dc;
@@ -25,10 +30,7 @@ mark {
     font-size: 30px;
     color: black;
 }
-img {
-    width: 100%;
-    margin-bottom: 10px;
-}
+
 #h {
     flex-grow: 2;
 }

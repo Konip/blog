@@ -4,17 +4,20 @@ import Login from './Login'
 import SignUp from './SignUp'
 
 interface AuthPageProps {
-    showLogin: boolean
-    showReg: boolean
-    closePopUp: () => void
+    modal: boolean
+    typeModal: string
 }
 
-const Auth: React.FC<AuthPageProps> = ({ showLogin, showReg, closePopUp }) => {
+const Auth: React.FC<AuthPageProps> = ({ modal, typeModal }) => {
     return (
-        <div className={showLogin || showReg ? 'auth-active' : 'auth'}>
+        <div className={modal ? 'auth-active' : 'auth'}>
             <div className="auth__content" >
-                {showReg && <SignUp closePopUp={closePopUp}/>}
-                {showLogin && <Login closePopUp={closePopUp}/>}
+                {modal && typeModal === 'signUp'
+                    ? <SignUp />: 
+                    modal && typeModal === 'login'
+                        ? <Login />
+                        : <></>
+                }
             </div>
         </div>
     )

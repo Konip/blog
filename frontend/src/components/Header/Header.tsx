@@ -1,22 +1,24 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { AppState } from '../../store/store'
 import CreatePost from '../CreatePost/CreatePost'
 import NavigationUser from '../NavigationUser/NavigationUser'
 import Search from '../Search/Search'
 import './Header.scss'
 
 interface HeaderProps {
-    handleLogin: () => void
-    handleReg: () => void
+
 }
 
-const Header: React.FC<HeaderProps> = ({ handleLogin,handleReg }) => {
+const Header: React.FC<HeaderProps> = () => {
+    const { auth, fullName } = useSelector((state: AppState) => state.user)
     return (
         <div className='header'>
             <div className="header-left">
                 <Search />
-                <CreatePost />
+                <CreatePost auth={auth} />
             </div>
-            <NavigationUser handleLogin={handleLogin} handleReg={handleReg} />
+            <NavigationUser auth={auth} fullName={fullName}/>
         </div>
     )
 }

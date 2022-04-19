@@ -1,9 +1,13 @@
 import React from 'react'
 import Write from '../components/Write/Write'
 
-const WritePage = () => {
+interface WritePageProps {
+  auth: boolean
+}
+
+const WritePage: React.FC<WritePageProps> = ({ auth }) => {
   return (
-    <Write/>
+    <Write />
   )
 }
 

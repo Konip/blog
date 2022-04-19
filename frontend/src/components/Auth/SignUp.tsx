@@ -6,20 +6,17 @@ import { ReactComponent as Close } from "../../assets/img/close.svg";
 import { ReactComponent as FbLogo } from "../../assets/img/fb.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/img/google.svg";
 import { ReactComponent as MailLogo } from "../../assets/img/mail.svg";
-import { REGISTRATION_REQUEST } from "../../store/actions";
+import { ReactComponent as ShowPass } from "../../assets/img/show.svg";
+import { ReactComponent as HidePass } from "../../assets/img/hide.svg";
+import { registration } from "../../store/authActionTypes";
+import { closePopUp, openPopUp } from "../../store/modalActionTypes";
 import { CreateUserDto } from "../../store/types";
 import { SignupFormSchema } from "../../utils/schemas/signupValidation";
-// import { Context } from "../../Context.js";
-// import "./Modal.css";
 import "./Auth.scss";
 
-
 interface SignUpProps {
-    // openModal(activeModal: boolean, typeModal: string): void
-    // setEmail(email: string): void
-    closePopUp: () => void
-}
 
+}
 
 // const isValidEmail = (email: string): boolean => !(email && !/^[a-zа-яё0-9._%+-]+@[a-zа-яё0-9.-]+\.[a-zа-яё]{2,6}$/i.test(email));
 
@@ -28,13 +25,13 @@ interface SignUpProps {
 //     return this.test("emailValidate", message, isValidEmail);
 // });
 
-
-const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
+const SignUp: React.FC<SignUpProps> = () => {
 
     const [loading, setLoading] = React.useState<boolean>()
     const [emailPage, setEmailPage] = React.useState<boolean>(false)
+    const [showPassword, setShowPassword] = React.useState<boolean>(false)
+
     const dispatch = useDispatch()
-    // const ctx = useContext(Context);
 
     // const handleOnSubmit = async ({ email, password, fullName }: { fullName: string, email: string, password: string }, actions: any) => {
     const handleOnSubmit = async (dto: CreateUserDto, actions: any) => {
@@ -42,7 +39,7 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
             setLoading(true)
             // const data = await UserApi.register(dto)
             // console.log(data);
-            dispatch({ type: REGISTRATION_REQUEST, payload: dto })
+            dispatch(registration(dto))
             // setCookie(null, "authToken", data.token, {
             //     maxAge: 30 * 24 * 60 * 60,
             //     path: "/"
@@ -57,10 +54,14 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
         }
     }
 
+    const handleOnShowPass = () => {
+        setShowPassword(!showPassword)
+    }
+
     return (
         <div className="signup">
             <div className="signup__close">
-                <Close onClick={closePopUp} />
+                <Close onClick={() => dispatch(closePopUp())} />
             </div>
             <div className="signup__left"></div>
             <div className="signup__right">
@@ -108,9 +109,16 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
                                     <div className="signup__input">
                                         <label htmlFor="password">Password</label>
                                         <div className="signup__container">
-                                            <Field className="signup__field" type="password" name="password" />
+                                            <Field className="signup__field"
+                                                type={showPassword ? "text" : "password"}
+                                                name="password"
+                                            />
                                             <div className={errors?.password ? "signup__border-error" : "signup__border"}></div>
                                             <div className={errors?.incorrect ? "signup__border-error" : "signup__border"}></div>
+                                            {showPassword
+                                                ? <ShowPass id="show" onClick={handleOnShowPass} />
+                                                : <HidePass id="hide" onClick={handleOnShowPass} />
+                                            }
                                         </div>
                                         <ErrorMessage className="signup__error" name="password" component="div" />
                                     </div>
@@ -119,11 +127,11 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
                                             <div className="signup__cards-title">
                                                 Already have an account?
                                             </div>
-                                            <div className="signup__cards-login">
-                                                <a href="">
-                                                    Log In
-                                                    <ArrowLogo />
-                                                </a>
+                                            <div className="signup__cards-login"
+                                                onClick={() => dispatch(openPopUp('login'))}
+                                            >
+                                                Log In
+                                                <ArrowLogo />
                                             </div>
                                         </div>
                                         <button className="modal__btn-sign" type="submit" disabled={isSubmitting}>
@@ -174,11 +182,11 @@ const SignUp: React.FC<SignUpProps> = ({ closePopUp }) => {
                                 <div className="signup__cards-title">
                                     Already have an account?
                                 </div>
-                                <div className="signup__cards-login">
-                                    <a href="">
-                                        Log In
-                                        <ArrowLogo />
-                                    </a>
+                                <div className="signup__cards-login"
+                                    onClick={() => dispatch(openPopUp('login'))}
+                                >
+                                    Log In
+                                    <ArrowLogo />
                                 </div>
                             </div>
                         </div>
