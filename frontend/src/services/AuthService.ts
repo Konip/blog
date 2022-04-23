@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { CreateUserDto, LoginDto, ResponseLogin, ResponseUser } from '../store/types'
 import Cookies from 'js-cookie'
+import { CreateUserDto, LoginDto, ResponseLogin, ResponseUser } from '../store/types'
 export const API_URL = `http://localhost:5000`
 
 const instance = axios.create({
@@ -8,7 +8,7 @@ const instance = axios.create({
 })
 
 export default class AuthService {
-    static async register(dto: CreateUserDto): Promise<ResponseUser> {
+    static async registration(dto: CreateUserDto): Promise<ResponseUser> {
         const { data } = await instance.post<CreateUserDto, { data: ResponseUser }>('/auth/register', dto)
         return data
     }

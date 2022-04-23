@@ -8,24 +8,17 @@ export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
 export const REGISTRATION_FAILURE = 'REGISTRATION_FAILURE'
 export const LOGOUT = 'LOGOUT'
 
-export function registration(payload: CreateUserDto) {
-    return {
-      type: REGISTRATION_REQUEST,
-      payload
-    };
-  }
-
   export function loginRequest(payload: LoginDto) {
     return {
       type: LOGIN_REQUEST,
       payload
-    };
+    }
   }
 
   export const loginSuccess = (user:any) => ({
     type: LOGIN_SUCCESS,
     payload: user,
-  });
+  })
 
   export const loginFailure = (error:any) => ({
     type: REGISTRATION_FAILURE,
@@ -34,4 +27,21 @@ export function registration(payload: CreateUserDto) {
 
   export const logout = () => ({
     type: LOGOUT
+  })
+
+  export function registrationRequest(payload: CreateUserDto) {
+    return {
+      type: REGISTRATION_REQUEST,
+      payload
+    }
+  }
+
+  export const  registrationSuccess = (user:any) => ({
+    type: REGISTRATION_SUCCESS,
+    payload: user,
+  })
+
+  export const  registrationFailure = (error:any) => ({
+    type: REGISTRATION_FAILURE,
+    payload: error
   })

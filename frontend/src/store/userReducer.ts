@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./authActionTypes"
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTRATION_FAILURE, REGISTRATION_REQUEST, REGISTRATION_SUCCESS } from "./authActionTypes"
 
 export interface userState {
   auth: boolean
@@ -32,6 +32,16 @@ export function userReducer(state = initialState, { type, payload }: any): userS
         isLoginPending: false
       }
     }
+    case LOGIN_FAILURE: {
+      // const { fullName, email } = payload
+      return {
+        ...state,
+        // auth: true,
+        // fullName,
+        // email,
+        // isLoginPending: false
+      }
+    }
     case LOGOUT: {
       return {
         ...state,
@@ -40,7 +50,32 @@ export function userReducer(state = initialState, { type, payload }: any): userS
         email: '',
       }
     }
-
+    case REGISTRATION_REQUEST: {
+      return {
+        ...state,
+        isLoginPending: true
+      }
+    }
+    case REGISTRATION_SUCCESS: {
+      const { fullName, email } = payload
+      return {
+        ...state,
+        auth: true,
+        fullName,
+        email,
+        isLoginPending: false
+      }
+    }
+    case REGISTRATION_FAILURE: {
+      // const { fullName, email } = payload
+      return {
+        ...state,
+        // auth: true,
+        // fullName,
+        // email,
+        // isLoginPending: false
+      }
+    }
     default: return state
   }
 }

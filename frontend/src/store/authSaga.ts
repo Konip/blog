@@ -1,43 +1,47 @@
-import { all, call, cancel, fork, put, SimpleEffect, take, TakeEffect } from 'redux-saga/effects';
+import { all, call, fork, put, take } from 'redux-saga/effects';
 import AuthService from '../services/AuthService';
-import { loginFailure, loginSuccess, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT, REGISTRATION_REQUEST } from './authActionTypes';
+import { loginFailure, loginSuccess, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT, registrationFailure, registrationSuccess, REGISTRATION_REQUEST } from './authActionTypes';
 import { closePopUp } from './modalActionTypes';
-import { ResponseLogin, ResponseUser } from './types';
+import { CreateUserDto, LoginDto, ResponseLogin, ResponseUser } from './types';
 
 
-// function* registration({ payload }: any) {
-//     try {
-//         console.log(payload);
-//         const data = UserApi.register(payload)
+export interface ResponseGenerator {
+    config?: any,
+    data?: any,
+    headers?: any,
+    request?: any,
+    status?: number,
+    statusText?: string
+}
 
-//     } catch (error) {
-
-//     }
-// }
-
-// function* login({ payload }: any) {
-//     try {
-//         // const data = UserApi.login(payload)
-//         const data = call(UserApi.login, payload)
-//         console.log(data);
-
-//         // yield put(loginSuccess(data))
-//     } catch (error) {
-
-//     }
-// }
-
-// function* watchLogin() {
-//     yield takeEvery
-// }
-
-// function* watchRegistration() {
-//     yield takeLatest(REGISTRATION_REQUEST, registration);
-// }
-
-function* authorize(email: string, password: string) {
+function* registrationFlow(payload: CreateUserDto) {
     try {
-        const user: ResponseLogin = yield call(AuthService.login, { email, password })
+        const user: ResponseUser = yield call(AuthService.registration, payload)
+        yield put(registrationSuccess(user))
+        yield call(AuthService.saveCookie, user.token)
+        yield put(closePopUp())
+    } catch (error) {
+        console.log(error);
+        yield put(registrationFailure(error))
+    }
+}
+
+
+function* registrationWatcher() {
+    while (true) {
+        const { payload } = yield take(REGISTRATION_REQUEST)
+        yield fork(registrationFlow, payload)
+        // const action: { type: string } = yield take([LOGOUT, LOGIN_FAILURE])
+        // if (action.type === LOGOUT) {
+        //     // yield cancel(user)
+        //     yield call(AuthService.clearCookie)
+        // }
+    }
+}
+
+function* loginFlow(payload: LoginDto) {
+    try {
+        const user: ResponseLogin = yield call(AuthService.login, payload)
         yield put(loginSuccess(user))
         yield call(AuthService.saveCookie, user.token)
         yield put(closePopUp())
@@ -47,10 +51,10 @@ function* authorize(email: string, password: string) {
     }
 }
 
-function* loginFlow() {
+function* loginWatcher() {
     while (true) {
         const { payload } = yield take(LOGIN_REQUEST)
-        const user: ResponseLogin = yield fork(authorize, payload.email, payload.password)
+        const user: ResponseLogin = yield fork(loginFlow, payload)
         const action: { type: string } = yield take([LOGOUT, LOGIN_FAILURE])
         if (action.type === LOGOUT) {
             // yield cancel(user)
@@ -61,6 +65,7 @@ function* loginFlow() {
 
 export function* authSaga() {
     yield all([
-        loginFlow()
+        loginWatcher(),
+        registrationWatcher(),
     ])
 }

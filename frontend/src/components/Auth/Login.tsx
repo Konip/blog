@@ -5,17 +5,17 @@ import { ReactComponent as ArrowLogo } from "../../assets/img/arrow.svg";
 import { ReactComponent as Close } from "../../assets/img/close.svg";
 import { ReactComponent as FbLogo } from "../../assets/img/fb.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/img/google.svg";
+import { ReactComponent as HidePass } from "../../assets/img/hide.svg";
 import { ReactComponent as MailLogo } from "../../assets/img/mail.svg";
+import { ReactComponent as ShowPass } from "../../assets/img/show.svg";
 import { loginRequest } from "../../store/authActionTypes";
 import { closePopUp, openPopUp } from "../../store/modalActionTypes";
 import { CreateUserDto } from "../../store/types";
-import { ReactComponent as ShowPass } from "../../assets/img/show.svg";
-import { ReactComponent as HidePass } from "../../assets/img/hide.svg";
 import { SignupFormSchema } from "../../utils/schemas/signupValidation";
 import "./Auth.scss";
 
 interface LoginProps {
- 
+
 }
 
 // const isValidEmail = (email: string): boolean => !(email && !/^[a-zа-яё0-9._%+-]+@[a-zа-яё0-9.-]+\.[a-zа-яё]{2,6}$/i.test(email));
@@ -38,7 +38,7 @@ const Login: React.FC<LoginProps> = () => {
         try {
             setLoading(true)
             dispatch(loginRequest(dto))
-            actions.resetForm();
+            // actions.resetForm();
         } catch (error) {
             actions.setErrors({ incorrect: error })
             console.warn(error);
@@ -84,11 +84,12 @@ const Login: React.FC<LoginProps> = () => {
                                             <label htmlFor="email">Email</label>
                                             <div className="signup__container">
                                                 <Field className="signup__field" type="email" name="email" id="email" />
-                                                <div className={errors?.email ? "signup__border-error" : "signup__border"}></div>
-                                                <div className={errors?.incorrect ? "signup__border-error" : "signup__border"}></div>
+                                                <div className={errors?.email || errors?.incorrect ? "signup__border-error" : "signup__border"}></div>
                                             </div>
-                                            <ErrorMessage className="signup__error" name="email" component="div" />
-                                            {errors.incorrect && <div className="signup__error">{errors.incorrect}</div>}
+                                            {errors?.email || errors?.incorrect
+                                                ? <ErrorMessage className="signup__error" name="email" component="div" />
+                                                : <div className="signup__error">{'\u00A0'}</div>
+                                            }
                                         </div>
                                         <div className="signup__input">
                                             <label htmlFor="password">Password</label>
@@ -98,14 +99,22 @@ const Login: React.FC<LoginProps> = () => {
                                                     name="password"
                                                     id="password"
                                                 />
-                                                <div className={errors?.password ? "signup__border-error" : "signup__border"}></div>
-                                                <div className={errors?.incorrect ? "signup__border-error" : "signup__border"}></div>
+                                                <div className={errors?.password || errors?.incorrect ? "signup__border-error" : "signup__border"}></div>
                                                 {showPassword
                                                     ? <ShowPass id="show" onClick={handleOnShowPass} />
                                                     : <HidePass id="hide" onClick={handleOnShowPass} />
                                                 }
                                             </div>
-                                            <ErrorMessage className="signup__error" name="password" component="div" />
+                                            {errors?.password || errors?.incorrect
+                                                // ? <ErrorMessage className="signup__error" name="password" component="div" />
+                                                ? <>
+                                                    <ErrorMessage className="signup__error" name="email" component="div" />
+                                                    {errors.incorrect && <div className="signup__error">{errors.incorrect}</div>}
+                                                </>
+                                                : <div className="signup__error">{'\u00A0'}</div>
+                                            }
+                                            {/* <ErrorMessage className="signup__error" name="email" component="div" />
+                                            {errors.incorrect && <div className="signup__error">{errors.incorrect}</div>} */}
                                         </div>
                                         <div className="signup__footer">
                                             <div className="signup__footer-container">

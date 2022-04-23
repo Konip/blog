@@ -5,10 +5,10 @@ import { ReactComponent as ArrowLogo } from "../../assets/img/arrow.svg";
 import { ReactComponent as Close } from "../../assets/img/close.svg";
 import { ReactComponent as FbLogo } from "../../assets/img/fb.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/img/google.svg";
+import { ReactComponent as HidePass } from "../../assets/img/hide.svg";
 import { ReactComponent as MailLogo } from "../../assets/img/mail.svg";
 import { ReactComponent as ShowPass } from "../../assets/img/show.svg";
-import { ReactComponent as HidePass } from "../../assets/img/hide.svg";
-import { registration } from "../../store/authActionTypes";
+import { registrationRequest } from "../../store/authActionTypes";
 import { closePopUp, openPopUp } from "../../store/modalActionTypes";
 import { CreateUserDto } from "../../store/types";
 import { SignupFormSchema } from "../../utils/schemas/signupValidation";
@@ -37,13 +37,7 @@ const SignUp: React.FC<SignUpProps> = () => {
     const handleOnSubmit = async (dto: CreateUserDto, actions: any) => {
         try {
             setLoading(true)
-            // const data = await UserApi.register(dto)
-            // console.log(data);
-            dispatch(registration(dto))
-            // setCookie(null, "authToken", data.token, {
-            //     maxAge: 30 * 24 * 60 * 60,
-            //     path: "/"
-            // })
+            dispatch(registrationRequest(dto))
             actions.resetForm();
         } catch (error) {
             actions.setErrors({ incorrect: error })
